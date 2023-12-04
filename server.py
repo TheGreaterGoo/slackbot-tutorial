@@ -13,7 +13,7 @@ from slashCommand import Slash
 logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 
-@app.route("/slack/test", methods=["POST"])
+@app.route("/slack/general", methods=["POST"])
 def command():
   if not verifier.is_valid_request(request.get_data(), request.headers):
     return make_response("invalid request", 403)
@@ -34,7 +34,7 @@ def command():
 
   try:
     response = slack_client.chat_postMessage(
-      channel='#{}'.format(info["channel_name"]), 
+      channel='#{}'.format(info["general"]), 
       text=commander.getMessage()
     )#.get()
   except SlackApiError as e:
